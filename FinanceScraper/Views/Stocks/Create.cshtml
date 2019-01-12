@@ -1,0 +1,25 @@
+﻿@model FinanceScraper.Models.Stock
+
+@{
+    ViewData["Title"] = "Stocks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Click on the Scrape button to scrape new stock information.</h2>
+
+<button type="button" class="btn btn-success">@Html.ActionLink("Stocks", "Create")</button>
+
+<hr />
+<div>
+    <form asp-action="Create">
+        <input type="submit" value="Scrape" class="btn btn-default"/>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

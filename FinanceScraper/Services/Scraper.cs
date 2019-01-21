@@ -13,20 +13,23 @@ namespace FinanceScraper.Services
         public List<Stock> Scrape()
         {
             var chromeDriver = new ChromeDriver("C:\\Users\\klync\\Source\\Repos\\FinanceScraper");
+            chromeDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+
+            var options = new ChromeOptions();
+            options.AddArgument("--headless");
+            options.AddArgument("--disable-gpu");
+            options.AddArgument("disable-pop-blocking");
 
             chromeDriver.Navigate().GoToUrl("https://login.yahoo.com");
             chromeDriver.Manage().Window.Maximize();
-
-            chromeDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             chromeDriver.FindElement(By.Id("login-username")).SendKeys("" + Keys.Enter);
             chromeDriver.FindElement(By.Id("login-passwd")).SendKeys("" + Keys.Enter);
 
             chromeDriver.Url = "https://finance.yahoo.com/portfolio/p_0/view/v1";
 
-            // close pop-up alert
-            //var closePopup = chromeDriver.FindElementByXPath("//dialog[@id = '__dialog']/section/button");
-            //closePopup.Click();
+            //var popup = chromeDriver.FindElement(By.XPath("//dialog[@id = '__dialog']/section/button"));
+            //popup.Click();
 
             IWebElement list = chromeDriver.FindElementByTagName("tbody");
             System.Collections.ObjectModel.ReadOnlyCollection<IWebElement> stocks = list.FindElements(By.TagName("tr"));
@@ -37,13 +40,13 @@ namespace FinanceScraper.Services
             for (int i = 1; i <= count; i++)
             {
                 var symbol = chromeDriver.FindElementByXPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[1]/span/a").GetAttribute("innerText");
-                var lastPrice = chromeDriver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[2]/span")).GetAttribute("innerText");
-                var change = chromeDriver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[3]/span")).GetAttribute("innerText");
-                var pChange = chromeDriver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[4]/span")).GetAttribute("innerText");
-                var currency = chromeDriver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[5]/span")).GetAttribute("innerText");
-                var volume = chromeDriver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[7]/span")).GetAttribute("innerText");
-                var aVolume = chromeDriver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[9]/span")).GetAttribute("innerText");
-                var marketCap = chromeDriver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[13]/span")).GetAttribute("innerText");
+                var lastPrice = chromeDriver.FindElementByXPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[2]/span").GetAttribute("innerText");
+                var change = chromeDriver.FindElementByXPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[3]/span").GetAttribute("innerText");
+                var pChange = chromeDriver.FindElementByXPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[4]/span").GetAttribute("innerText");
+                var currency = chromeDriver.FindElementByXPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[5]/span").GetAttribute("innerText");
+                var volume = chromeDriver.FindElementByXPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[7]/span").GetAttribute("innerText");
+                var aVolume = chromeDriver.FindElementByXPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[9]/span").GetAttribute("innerText");
+                var marketCap = chromeDriver.FindElementByXPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[13]/span").GetAttribute("innerText");
 
 
                 Stock stock = new Stock();

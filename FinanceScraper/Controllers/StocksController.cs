@@ -64,13 +64,13 @@ namespace FinanceScraper.Controllers
         {
             if (ModelState.IsValid)
             {
-                Scraper myScraper = new Scraper();
+                Scraper newScraper = new Scraper();
 
-                List<Stock> stockItems = myScraper.Scrape();
-                foreach (var stockItem in stockItems)
+                List<Stock> stockList = newScraper.Scrape();
+                foreach (Stock newStock in stockList)
                 {
-                    stockItem.MarketTime = DateTime.Now;
-                    _context.Add(stockItem);
+                    stock.MarketTime = DateTime.Now;
+                    _context.Add(stockList);
                     await _context.SaveChangesAsync();
                 }
                 return RedirectToAction(nameof(Index));

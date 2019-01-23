@@ -25,7 +25,7 @@ namespace FinanceScraper.Services
             chromeDriver.Navigate().GoToUrl("https://login.yahoo.com");
             chromeDriver.Manage().Window.Maximize();
 
-            chromeDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            chromeDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
             chromeDriver.FindElement(By.Id("login-username")).SendKeys("" + Keys.Enter);
             chromeDriver.FindElement(By.Id("login-passwd")).SendKeys("" + Keys.Enter);

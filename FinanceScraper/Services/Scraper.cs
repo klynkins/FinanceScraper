@@ -32,9 +32,6 @@ namespace FinanceScraper.Services
 
             chromeDriver.Url = "https://finance.yahoo.com/portfolio/p_0/view/v1";
 
-            //var popup = chromeDriver.FindElement(By.XPath("//dialog[@id = '__dialog']/section/button"));
-            //popup.Click();
-
             IWebElement list = chromeDriver.FindElement(By.TagName("tbody"));
             System.Collections.ObjectModel.ReadOnlyCollection<IWebElement> stocks = list.FindElements(By.TagName("tr"));
             int count;

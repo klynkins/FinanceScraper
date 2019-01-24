@@ -69,7 +69,6 @@ namespace FinanceScraper.Controllers
                 List<Stock> stockList = newScraper.Scrape();
                 foreach (Stock newStock in stockList)
                 {
-                    stock.MarketTime = DateTime.Now;
                     _context.Add(stockList);
                     await _context.SaveChangesAsync();
                 }

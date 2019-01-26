@@ -19,7 +19,7 @@ namespace FinanceScraper.Services
             options.AddArguments("--window-size=1980,1080");
 
             IWebDriver chromeDriver = new ChromeDriver("C:\\Users\\klync\\Source\\Repos\\FinanceScraper");
-            // fixing timing issues
+            // fixing timing issues //
             //WebDriverWait wait = new WebDriverWait(chromeDriver, TimeSpan.FromSeconds(5));
 
             chromeDriver.Navigate().GoToUrl("https://login.yahoo.com");
